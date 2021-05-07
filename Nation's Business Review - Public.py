@@ -1,8 +1,7 @@
 # this code was written to perform the analyses described in 
-# Nation’s Business and the Environment: 
-# The U.S. Chamber’s Changing Relationships with DDT, “Ecologists,” Regulations, and Renewable Energy
-# as published in 
-# [publication]
+# Nation’s Business and the Environment: the U.S. Chamber’s Changing Relationships with DDT, “Ecologists,” Regulations, and Renewable Energy
+# as published in the Journal of Environmental Studies and Sciences
+
 
 # this is an implementation of this: https://cloud.google.com/vision/docs/pdf#vision_text_detection_pdf_gcs-python
 
@@ -14,10 +13,10 @@ from google.cloud import storage
 from google.protobuf import json_format
 
 #with .pdf files uploaded to a google cloud storage bucket in sequential format yyyy.mm
+client = vision.ImageAnnotatorClient()
 #sends files for OCR via google cloud vision API
 #resulting in large batch of _result ## .json files from which text must be extracted
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "c:\location\credentials.json" #credentials file location
-client = vision.ImageAnnotatorClient()
 mime_type = 'application/pdf'
 feature = vision.types.Feature(type=vision.enums.Feature.Type.DOCUMENT_TEXT_DETECTION)
 batch_size = 10 #note: higher numbers are possible but Google often throws errors
@@ -66,4 +65,4 @@ for j in range(a):
 			annotation = first_page_response.full_text_annotation
 			print(annotation.text.encode('utf-8', 'ignore'))
 		sys.stdout = original_stdout
-print('Exported all text from jsons!')
+
